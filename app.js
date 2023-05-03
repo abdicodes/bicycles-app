@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
+const logger = require('./utils/logger')
+const { PORT } = require('./utils/config')
+const { connectToDatabase } = require('./utils/db')
 
 // Heroku dynamically sets a port
-const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-app.listen(PORT, () => {
-  console.log('server started on port 5000')
-})
+const start = async () => {
+  await connectToDatabase()
+  app.listen(PORT, () => {
+    logger.info(`Server running on port ${PORT}`)
+  })
+}
+
+start()
