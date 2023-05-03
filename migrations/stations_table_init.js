@@ -2,40 +2,37 @@ const { DataTypes } = require('sequelize')
 const fs = require('fs')
 const { parse } = require('csv-parse')
 
-// we save CSV data to this array
-const data = []
+// using promise to push parsed objects from CSV file and INSERT to database table in migration up method
+const dataImporter = () => {
+  return new Promise((resolve, reject) => {
+    const data = []
 
-// reading and parsing CSV data
-fs.createReadStream('./data/asemat.csv')
-  .pipe(parse({ delimiter: ',', from_line: 2 }))
-  .on('data', (row) => {
-    // Kaupunki and Stad columns are missing for Helsinki stations so we fix data manually.
-
-    if (row[7] === ' ') {
-      row[7] = 'Helsinki'
-    }
-
-    if (row[8] === ' ') {
-      row[8] = 'Helsingfors'
-    }
-
-    data.push({
-      id: Number(row[1]),
-      nimi: String(row[2]),
-      namn: String(row[3]),
-      name: String(row[4]),
-      osoite: String(row[5]),
-      adress: String(row[6]),
-      kaupunki: String(row[7]),
-      stad: String(row[8]),
-      capacity: Number(row[10]),
-      x: Number(row[11]),
-      y: Number(row[12]),
-    })
+    fs.createReadStream(`./data/stations.csv`)
+      .pipe(parse({ delimiter: ',', from_line: 2 }))
+      .on('data', (row) => {
+        data.push({
+          id: Number(row[1]),
+          nimi: String(row[2]),
+          namn: String(row[3]),
+          name: String(row[4]),
+          osoite: String(row[5]),
+          adress: String(row[6]),
+          kaupunki: String(row[7]),
+          stad: String(row[8]),
+          capacity: Number(row[10]),
+          x: Number(row[11]),
+          y: Number(row[12]),
+        })
+      })
+      .on('end', () => {
+        console.log(`total ${data.length} stations have been imported`)
+        resolve(data)
+      })
+      .on('error', (err) => {
+        reject(err)
+      })
   })
-  .on('end', () => {
-    console.log(`${data.length} stations have been added`)
-  })
+}
 
 module.exports = {
   up: async ({ context: queryInterface }) => {
@@ -90,7 +87,7 @@ module.exports = {
     })
 
     // Insert data into the stations table
-
+    const data = await dataImporter()
     await queryInterface.bulkInsert('stations', data)
   },
 
