@@ -4,8 +4,6 @@ const logger = require('./utils/logger')
 const { PORT } = require('./utils/config')
 const { connectToDatabase } = require('./utils/db')
 
-// Heroku dynamically sets a port
-
 app.use(express.static('dist'))
 
 const start = async () => {

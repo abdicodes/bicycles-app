@@ -8,7 +8,8 @@
     "start-prod": "node app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "migration:down": "node utils/rollback.js"
   },
   "license": "ISC",
   "devDependencies": {
@@ -34,8 +35,10 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "csv-parse": "^5.3.9",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "pg": "^8.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
