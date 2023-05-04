@@ -17,12 +17,56 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    let where = {}
+
+    if (req.query.search) {
+      where = {
+        [Op.or]: [
+          {
+            nimi: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            namn: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            name: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            osoite: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            adress: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            kaupunki: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+          {
+            stad: {
+              [Op.iLike]: `%${req.query.search}%`,
+            },
+          },
+        ],
+      }
+    }
     const page = req.query.page ? req.query.page : 0
     console.log(req.query.page)
     const { limit, offset } = getPagination(page, 10)
     const data = await Station.findAndCountAll({
       limit,
       offset,
+      where,
     })
     const stations = getPagingData(data, page, limit)
 

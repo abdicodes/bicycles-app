@@ -46,6 +46,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "sequelize": "^6.31.1",
-    "umzug": "^3.2.1"
+    "umzug": "^3.2.1",
+    "use-debounce": "^9.0.4"
   }
 }
