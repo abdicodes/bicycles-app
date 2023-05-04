@@ -5,7 +5,9 @@ const { PORT } = require('./utils/config')
 const { connectToDatabase } = require('./utils/db')
 const stationsRouter = require('./controllers/stations')
 const tripsRouter = require('./controllers/trips')
+const cors = require('cors')
 
+app.use(cors())
 // app.use(express.static('dist'))
 
 app.use('/api/stations', stationsRouter)

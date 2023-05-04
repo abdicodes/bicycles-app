@@ -17,12 +17,14 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const { limit, offset } = getPagination(5, 10)
+    const page = req.query.page ? req.query.page : 0
+    console.log(req.query.page)
+    const { limit, offset } = getPagination(page, 10)
     const data = await Station.findAndCountAll({
       limit,
       offset,
     })
-    const stations = getPagingData(data, 5, limit)
+    const stations = getPagingData(data, page, limit)
 
     res.send(stations)
   } catch (e) {
