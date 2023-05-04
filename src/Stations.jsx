@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import SearchBar from './SearchBar'
 
 const StationList = () => {
   console.log('hello')
   const [stations, setStations] = useState([])
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState()
+  const [search, setSearch] = useState('')
 
   const handlePrevious = () => {
     if (page === 0) {
@@ -23,11 +25,15 @@ const StationList = () => {
       setPage(page + 1)
     }
   }
+
+  const handleSearch = (value) => {
+    setSearch(value)
+  }
   useEffect(() => {
     console.log(page)
     const fetchStations = () => {
       axios
-        .get(`http://localhost:5000/api/stations?page=${page}`)
+        .get(`http://localhost:5000/api/stations?page=${page}&search=${search}`)
         .then(({ data }) => {
           console.log(data)
           setStations(data.items)
@@ -37,16 +43,18 @@ const StationList = () => {
     }
 
     fetchStations()
-  }, [page])
+  }, [page, search])
 
   return (
     <div>
+      <SearchBar handleSearch={handleSearch} />
       <h1>Stations</h1>
       {stations.length > 0 && (
         <ul>
           {stations.map((station) => (
             <li key={station.id}>
-              {station.name} - {station.kaupunki}
+              {station.name} - {station.kaupunki} - {station.osoite} -{' '}
+              {station.capacity}
             </li>
           ))}
         </ul>
