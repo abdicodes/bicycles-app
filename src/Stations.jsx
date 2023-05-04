@@ -19,7 +19,7 @@ const StationList = () => {
   }
 
   const handleNext = () => {
-    if (page === totalPages) {
+    if (page === totalPages - 1) {
       alert('This is the last page')
     } else {
       setPage(page + 1)
@@ -28,6 +28,7 @@ const StationList = () => {
 
   const handleSearch = (value) => {
     setSearch(value)
+    setPage(0)
   }
   useEffect(() => {
     console.log(page)

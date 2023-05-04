@@ -22,6 +22,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    const order = req.query.sort.split(' ')
     let where = {}
     if (req.query.search) {
       where = {
@@ -74,10 +75,7 @@ router.get('/', async (req, res) => {
       ],
       limit,
       offset,
-      order: [
-        // Will escape title and validate DESC against a list of valid direction parameters
-        ['departureStation', 'name', 'ASC'],
-      ],
+      order: [order],
     })
 
     const trip = getPagingData(data, page, limit)
