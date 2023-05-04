@@ -4,51 +4,27 @@
   "description": "bicycle-app exercise",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
-    "start-prod": "nodemon app.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "build": "webpack --mode production",
     "migration:down": "node utils/rollback.js"
   },
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/plugin-transform-runtime": "^7.10.0",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "@testing-library/jest-dom": "^5.8.0",
-    "@testing-library/react": "^10.0.4",
-    "babel-jest": "^25.5.1",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.3",
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.11.0",
-    "eslint-plugin-react": "^7.19.0",
-    "html-loader": "^1.1.0",
-    "html-webpack-plugin": "^4.3.0",
     "jest": "^25.5.4",
-    "nodemon": "^2.0.22",
-    "style-loader": "^1.2.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
-    "axios": "^0.19.2",
     "cors": "^2.8.5",
     "csv-parse": "^5.3.9",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
-    "leaflet": "^1.9.3",
     "pg": "^8.10.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^5.2.0",
     "sequelize": "^6.31.1",
-    "umzug": "^3.2.1",
-    "use-debounce": "^9.0.4"
+    "umzug": "^3.2.1"
   }
 }

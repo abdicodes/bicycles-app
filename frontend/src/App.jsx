@@ -1,5 +1,5 @@
 import React from 'react'
-import StationList from './stations'
+import StationList from './Stations'
 import TripList from './Trips'
 const App = () => {
   return (
