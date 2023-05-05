@@ -34,17 +34,12 @@ const InfoCard = ({
         }{' '}
         <br />
         Total number of journeys ending at the station: {totalReturn} <br />
-        Average distance of a journey starting from the station: {
-          avgDeparture
-        }{' '}
-        meters
+        Average distance of a journey starting from the station:{' '}
+        {avgDeparture.toFixed(2)} meters
         <br />
-        Average distance of a journey ending at the station: {avgReturn} meters
+        Average distance of a journey ending at the station:{' '}
+        {avgReturn.toFixed(2)} meters
         <br />
-        Top 5 most popular return stations for journeys starting from the
-        {/* station: {topReturn}
-          Top 5 most popular departure stations for journeys ending at the
-          station: {topDeparture} */}
       </Typography>
 
       <Typography gutterBottom variant="h6" component="li">
