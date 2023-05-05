@@ -22,7 +22,9 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const order = req.query.sort.split(' ')
+    const order = req.query.sort
+      ? req.query.sort.split(' ')
+      : ['departure', 'DESC']
     let where = {}
     if (req.query.search) {
       where = {
