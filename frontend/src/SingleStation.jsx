@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useMatch } from 'react-router-dom'
 import axios from 'axios'
 import SingleStationContainer from './SingleStationContainer'
-import { Box, ButtonGroup, Button, Typography } from '@mui/material/'
+import {
+  Box,
+  ButtonGroup,
+  Button,
+  Typography,
+  CircularProgress,
+} from '@mui/material/'
 
 const SingleStation = ({ ...pros }) => {
   const { id } = useMatch('/stations/:id').params
   const [data, setData] = useState()
   const [month, setMonth] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchStation = () => {
@@ -16,7 +23,7 @@ const SingleStation = ({ ...pros }) => {
           params: { month: month },
         })
         .then(({ data }) => {
-          console.log(data)
+          setLoading(false)
           setData(data)
         })
     }
@@ -26,8 +33,11 @@ const SingleStation = ({ ...pros }) => {
   }, [month])
 
   const handleMonth = (value) => {
+    setLoading(true)
     setMonth(value)
   }
+
+  // this object as passed as props to child components in the Container component
   const stationData = data
     ? {
         name: data.station.name,
@@ -61,8 +71,9 @@ const SingleStation = ({ ...pros }) => {
         <Button onClick={() => handleMonth(8)}>August</Button>
         <Button onClick={() => handleMonth(null)}>All months</Button>
       </ButtonGroup>
+      <Box> {loading && <CircularProgress />}</Box>
 
-      {data && <SingleStationContainer stationData={stationData} />}
+      {data && !loading && <SingleStationContainer stationData={stationData} />}
     </Box>
   )
 }
