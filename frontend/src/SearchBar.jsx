@@ -1,22 +1,44 @@
+import { Container, InputAdornment, TextField } from '@mui/material'
 import React, { useState } from 'react'
+import SearchIcon from '@mui/icons-material/Search'
 
-function SearchBar(props) {
-  const [searchTerm, setSearchTerm] = useState('')
+const SearchBar = ({ initialValue, onChangeText }) => {
+  const [searchTerm, setSearchTerm] = useState(initialValue)
 
-  function handleInputChange(event) {
-    setSearchTerm(event.target.value)
-  }
-
-  function handleSubmit(event) {
+  const handleChange = (event) => {
     event.preventDefault()
-    props.handleSearch(searchTerm)
+    const newValue = event.target.value
+    setSearchTerm(newValue)
+    onChangeText(newValue)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={searchTerm} onChange={handleInputChange} />
-      <button type="submit">Search</button>
-    </form>
+    <Container maxWidth="md" sx={{ mt: 5 }}>
+      <TextField
+        id="search"
+        type="search"
+        label="Search"
+        value={searchTerm}
+        onChange={handleChange}
+        sx={{ width: 600 }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+    </Container>
   )
 }
-export default SearchBar
+
+export const SearchBarMomoized = React.memo(
+  SearchBar,
+  (prevProps, nextProps) => {
+    return (
+      prevProps.value === nextProps.value &&
+      prevProps.onChangeText === nextProps.onChangeText
+    )
+  }
+)
