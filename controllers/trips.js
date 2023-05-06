@@ -69,7 +69,8 @@ router.get('/', async (req, res) => {
     }
 
     const page = req.query.page ? req.query.page : 0
-    const { limit, offset } = getPagination(page, 5)
+    const rows = req.query.rows ? req.query.rows : 5
+    const { limit, offset } = getPagination(page, rows)
     const data = await Trip.findAndCountAll({
       include: [
         { model: Station, as: 'departureStation', where },

@@ -1,104 +1,92 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
-import SearchBar from './SearchBar'
-import { dateConverter } from './dateConverter'
+import { SearchBarMomoized } from './SearchBar'
+import TripsContainer from './TripsContainer'
+import { useDebouncedCallback } from 'use-debounce'
+import { CircularProgress, Box } from '@mui/material/'
 const TripList = () => {
-  console.log('hello')
   const [trips, setTrips] = useState([])
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState()
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState('departure DESC')
+  const [rows, setRows] = useState(5)
+  const [loading, setLoading] = useState(true)
 
-  const handlePrevious = () => {
-    if (page === 0) {
-      console.log('errorrr')
-      alert('This is the first page')
-    } else {
-      setPage(page - 1)
-    }
+  const handlePage = (page) => {
+    setPage(page)
+    setLoading(true)
   }
 
-  const handleNext = () => {
-    if (page === totalPages) {
-      alert('This is the last page')
-    } else {
-      setPage(page + 1)
-    }
+  const sortDispatcher = (value) => {
+    setSort(value)
   }
-
-  const handleSearch = (value) => {
-    setSearch(value)
+  const handleRows = (e) => {
+    console.log('rows:')
+    console.log(e.target.value)
+    setRows(e.target.value)
     setPage(0)
+    setLoading(true)
   }
 
-  const handleSort = (field) => {
-    if (sort === `${field} ASC`) {
-      setSort(`${field} DESC`)
+  const debounced = useDebouncedCallback(
+    // debounce will prevent sending REST queries with every change in text
+    // it will wait 1 second between changes before changing state of search and thus sending axios query
+    // we used memoized to presist value between renders.
+    (value) => {
       setPage(0)
-    } else {
-      setSort(`${field} ASC`)
-      setPage(0)
-    }
-  }
+      setSearch(value)
+      setLoading(true)
+    },
+    // delay in ms
+    1000
+  )
+
+  const memoizedOnChangeText = useMemo(() => debounced, [debounced])
+
   useEffect(() => {
     console.log(page)
-    const fetchStations = () => {
+    const fetchTrips = () => {
       axios
         .get(`http://localhost:5000/api/trips`, {
-          params: { page, search, sort },
+          params: { page, search, sort, rows },
         })
         .then(({ data }) => {
           console.log(data)
           setTrips(data.items)
           setTotalPages(data.totalPages)
           setPage(data.currentPage)
+          setLoading(false)
         })
     }
 
-    fetchStations()
-  }, [page, search, sort])
+    fetchTrips()
+  }, [page, search, sort, rows])
 
   return (
-    <div>
-      <SearchBar handleSearch={handleSearch} />
-      <h1>Trips</h1>
-      {trips && (
-        <table>
-          <thead>
-            <tr>
-              <th onClick={() => handleSort('departureStation name')}>
-                Departure station name
-              </th>
-              <th onClick={() => handleSort('returnStation name')}>
-                Return station name
-              </th>
-              <th onClick={() => handleSort('departure')}>Departure time</th>
-              <th onClick={() => handleSort('return')}>Return time</th>
-              <th onClick={() => handleSort('distance')}>Distance</th>
-              <th onClick={() => handleSort('duration')}>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trips &&
-              trips.map((trip) => (
-                <tr key={trip.id} onClick={() => console.log('you clicked me')}>
-                  <td>{trip.departureStation.name}</td>
-                  <td>{trip.returnStation.name}</td>
-                  <td>{dateConverter(trip.departure)}</td>
-                  <td>{dateConverter(trip.return)}</td>
-                  <td>{trip.distance}</td>
-                  <td>{trip.duration}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+    <Box>
+      <SearchBarMomoized
+        initialValue={search}
+        onChangeText={memoizedOnChangeText}
+        value={search}
+      />
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', m: 20 }}>
+          <CircularProgress />
+        </Box>
       )}
-      <div>
-        <button onClick={handlePrevious}>previous</button>
-        <button onClick={handleNext}>next</button>
-      </div>
-    </div>
+      {totalPages && !loading && (
+        <TripsContainer
+          page={page}
+          count={totalPages}
+          trips={trips}
+          handleChangePage={handlePage}
+          handleChangeRow={handleRows}
+          rows={rows}
+          sortDispatcher={sortDispatcher}
+        />
+      )}
+    </Box>
   )
 }
 
