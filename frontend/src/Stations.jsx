@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { useDebouncedCallback } from 'use-debounce'
-import { CircularProgress, Box, Typography } from '@mui/material/'
+import { CircularProgress, Box } from '@mui/material/'
 import { SearchBarMomoized } from './SearchBar'
 import StationsContainer from './StationsContainer'
 // import SearchBar from './SearchBar'
@@ -81,22 +81,6 @@ const StationList = () => {
           rows={rows}
         />
       )}
-      {/* <SearchBar handleSearch={handleSearch} /> */}
-      {/* <h1>Stations</h1>
-      {stations.length > 0 && (
-        <ul>
-          {stations.map((station) => (
-            <li key={station.id}>
-              {station.name} - {station.kaupunki} - {station.osoite} -{' '}
-              {station.capacity}
-            </li>
-          ))}
-        </ul>
-      )}
-      <div>
-        <button onClick={handlePrevious}>previous</button>
-        <button onClick={handleNext}>next</button>
-      </div> */}
     </div>
   )
 }
