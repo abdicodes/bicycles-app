@@ -150,8 +150,9 @@ router.get('/', async (req, res) => {
       }
     }
     const page = req.query.page ? req.query.page : 0
+    const rows = req.query.rows ? req.query.rows : 5
     console.log(req.query.page)
-    const { limit, offset } = getPagination(page, 10)
+    const { limit, offset } = getPagination(page, rows)
     const data = await Station.findAndCountAll({
       limit,
       offset,

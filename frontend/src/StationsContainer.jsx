@@ -26,9 +26,9 @@ const StationsContainer = ({
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align="right">Address</TableCell>
-              <TableCell align="right">City</TableCell>
-              <TableCell align="right">Capacity</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>City</TableCell>
+              <TableCell>Capacity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -37,9 +37,10 @@ const StationsContainer = ({
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="right">{row.returnStation.name}</TableCell>
-                <TableCell align="right">{row.osoite}</TableCell>
-                <TableCell align="right">{row.capacity}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.osoite}</TableCell>
+                <TableCell>{row.kaupunki}</TableCell>
+                <TableCell>{row.capacity}</TableCell>
               </TableRow>
             ))}
           </TableBody>
