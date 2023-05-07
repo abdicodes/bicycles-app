@@ -4,6 +4,7 @@ import { SearchBarMomoized } from './SearchBar'
 import TripsContainer from './TripsContainer'
 import { useDebouncedCallback } from 'use-debounce'
 import { CircularProgress, Box, Typography } from '@mui/material/'
+import Filters from './Filters'
 const TripList = () => {
   const [trips, setTrips] = useState([])
   const [page, setPage] = useState(0)
@@ -65,6 +66,9 @@ const TripList = () => {
     fetchTrips()
   }, [page, search, sort, rows])
 
+  const handleFilter = (e) => {
+    console.log(e)
+  }
   return (
     <Box>
       <SearchBarMomoized
@@ -77,6 +81,7 @@ const TripList = () => {
           <CircularProgress />
         </Box>
       )}
+      <Filters handleFilter={handleFilter} />
       {totalPages && !loading && totalItems > 0 && (
         <TripsContainer
           page={page}

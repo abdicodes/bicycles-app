@@ -71,10 +71,33 @@ router.get('/', async (req, res) => {
     const page = req.query.page ? req.query.page : 0
     const rows = req.query.rows ? req.query.rows : 5
     const { limit, offset } = getPagination(page, rows)
+
+    const whereDeparture = {}
+    if (req.query.departureCity) {
+      whereDeparture.kaupunki = {
+        [Op.iLike]: `%${req.query.departureCity}%`,
+      }
+    }
+
+    const whereReturn = {}
+    if (req.query.returnCity) {
+      whereReturn.kaupunki = {
+        [Op.iLike]: `%${req.query.returnCity}%`,
+      }
+    }
+
     const data = await Trip.findAndCountAll({
       include: [
-        { model: Station, as: 'departureStation', where },
-        { model: Station, as: 'returnStation', where },
+        {
+          model: Station,
+          as: 'departureStation',
+          where: { ...whereDeparture, ...where },
+        },
+        {
+          model: Station,
+          as: 'returnStation',
+          where: { ...whereReturn, ...where },
+        },
       ],
       limit,
       offset,
