@@ -22,9 +22,55 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    //sort query will be used in order object
     const order = req.query.sort
       ? req.query.sort.split(' ')
       : ['departure', 'DESC']
+
+    const whereDeparture = {}
+    if (req.query.departureCity) {
+      whereDeparture.kaupunki = {
+        [Op.iLike]: `%${req.query.departureCity}%`,
+      }
+    }
+
+    const whereReturn = {}
+    if (req.query.returnCity) {
+      whereReturn.kaupunki = {
+        [Op.iLike]: `%${req.query.returnCity}%`,
+      }
+    }
+
+    const whereDistance = {}
+    if (req.query.distance) {
+      const distance = req.query.distance
+      if (distance === 'short') {
+        whereDistance.distance = {
+          [Op.lte]: 5000,
+        }
+      }
+      if (distance === 'long') {
+        whereDistance.distance = {
+          [Op.gt]: 5000,
+        }
+      }
+    }
+
+    const whereDuration = {}
+    if (req.query.duration) {
+      const duration = req.query.duration
+      if (duration === 'short') {
+        whereDuration.duration = {
+          [Op.lte]: 600,
+        }
+      }
+      if (duration === 'long') {
+        whereDuration.duration = {
+          [Op.gt]: 600,
+        }
+      }
+    }
+
     let where = {}
     if (req.query.search) {
       where = {
@@ -72,20 +118,6 @@ router.get('/', async (req, res) => {
     const rows = req.query.rows ? req.query.rows : 5
     const { limit, offset } = getPagination(page, rows)
 
-    const whereDeparture = {}
-    if (req.query.departureCity) {
-      whereDeparture.kaupunki = {
-        [Op.iLike]: `%${req.query.departureCity}%`,
-      }
-    }
-
-    const whereReturn = {}
-    if (req.query.returnCity) {
-      whereReturn.kaupunki = {
-        [Op.iLike]: `%${req.query.returnCity}%`,
-      }
-    }
-
     const data = await Trip.findAndCountAll({
       include: [
         {
@@ -101,6 +133,11 @@ router.get('/', async (req, res) => {
       ],
       limit,
       offset,
+      where: {
+        ...whereDistance,
+        ...whereDuration,
+      },
+
       order: [order],
     })
 

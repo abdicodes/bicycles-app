@@ -87,12 +87,12 @@ const Filters = ({ handleFilter }) => {
           <FormControlLabel
             value="short"
             control={<Radio />}
-            label="Short: (~0-10 km) "
+            label="Short: (~0-5 km) "
           />
           <FormControlLabel
             value="long"
             control={<Radio />}
-            label="Long: (more than 10 km)"
+            label="Long: (more than 5 km)"
           />
         </RadioGroup>
       </FormControl>
