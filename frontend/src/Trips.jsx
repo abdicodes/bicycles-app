@@ -3,7 +3,7 @@ import axios from 'axios'
 import { SearchBarMomoized } from './SearchBar'
 import TripsContainer from './TripsContainer'
 import { useDebouncedCallback } from 'use-debounce'
-import { CircularProgress, Box } from '@mui/material/'
+import { CircularProgress, Box, Typography } from '@mui/material/'
 const TripList = () => {
   const [trips, setTrips] = useState([])
   const [page, setPage] = useState(0)
@@ -12,6 +12,7 @@ const TripList = () => {
   const [sort, setSort] = useState('departure DESC')
   const [rows, setRows] = useState(5)
   const [loading, setLoading] = useState(true)
+  const [totalItems, setTotalItems] = useState(null)
 
   const handlePage = (page) => {
     setPage(page)
@@ -57,6 +58,7 @@ const TripList = () => {
           setTotalPages(data.totalPages)
           setPage(data.currentPage)
           setLoading(false)
+          setTotalItems(data.totalItems)
         })
     }
 
@@ -75,7 +77,7 @@ const TripList = () => {
           <CircularProgress />
         </Box>
       )}
-      {totalPages && !loading && (
+      {totalPages && !loading && totalItems > 0 && (
         <TripsContainer
           page={page}
           count={totalPages}
@@ -86,6 +88,7 @@ const TripList = () => {
           sortDispatcher={sortDispatcher}
         />
       )}
+      {totalItems === 0 && <Typography> No records found!</Typography>}
     </Box>
   )
 }
