@@ -14,9 +14,16 @@ const TripList = () => {
   const [rows, setRows] = useState(5)
   const [loading, setLoading] = useState(true)
   const [totalItems, setTotalItems] = useState(null)
+  const [filters, setFilters] = useState({})
 
   const handlePage = (page) => {
     setPage(page)
+    setLoading(true)
+  }
+
+  const handleFilter = (value) => {
+    setFilters(value)
+    setPage(0)
     setLoading(true)
   }
 
@@ -51,7 +58,7 @@ const TripList = () => {
     const fetchTrips = () => {
       axios
         .get(`http://localhost:5000/api/trips`, {
-          params: { page, search, sort, rows },
+          params: { page, search, sort, rows, ...filters },
         })
         .then(({ data }) => {
           console.log(data)
@@ -64,11 +71,8 @@ const TripList = () => {
     }
 
     fetchTrips()
-  }, [page, search, sort, rows])
+  }, [page, search, sort, rows, filters])
 
-  const handleFilter = (e) => {
-    console.log(e)
-  }
   return (
     <Box>
       <SearchBarMomoized
