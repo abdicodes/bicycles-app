@@ -4,6 +4,16 @@ const { Op } = require('sequelize')
 const sequelize = require('sequelize')
 const { getPagination, getPagingData } = require('../utils/paging')
 
+router.post('/', async (req, res) => {
+  try {
+    const trip = await Trip.create(req.body)
+    res.send(trip)
+  } catch (e) {
+    console.log(e)
+    res.status(400).end()
+  }
+})
+
 router.get('/:id', async (req, res) => {
   try {
     const trip = await Trip.findByPk(req.params.id, {
@@ -27,90 +37,140 @@ router.get('/', async (req, res) => {
       ? req.query.sort.split(' ')
       : ['departure', 'DESC']
 
-    const whereDeparture = {}
-    if (req.query.departureCity) {
-      whereDeparture.kaupunki = {
-        [Op.iLike]: `%${req.query.departureCity}%`,
-      }
-    }
-
-    const whereReturn = {}
-    if (req.query.returnCity) {
-      whereReturn.kaupunki = {
-        [Op.iLike]: `%${req.query.returnCity}%`,
-      }
-    }
-
-    const whereDistance = {}
-    if (req.query.distance) {
-      const distance = req.query.distance
-      if (distance === 'short') {
-        whereDistance.distance = {
-          [Op.lte]: 5000,
-        }
-      }
-      if (distance === 'long') {
-        whereDistance.distance = {
-          [Op.gt]: 5000,
-        }
-      }
-    }
-
-    const whereDuration = {}
-    if (req.query.duration) {
-      const duration = req.query.duration
-      if (duration === 'short') {
-        whereDuration.duration = {
-          [Op.lte]: 600,
-        }
-      }
-      if (duration === 'long') {
-        whereDuration.duration = {
-          [Op.gt]: 600,
-        }
-      }
-    }
-
     let where = {}
     if (req.query.search) {
       where = {
+        ...where,
         [Op.or]: [
           {
-            nimi: {
+            '$departureStation.nimi$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
           {
-            namn: {
+            '$returnStation.nimi$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
           {
-            name: {
+            '$departureStation.namn$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
           {
-            osoite: {
+            '$returnStation.namn$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
           {
-            adress: {
+            '$departureStation.name$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
           {
-            kaupunki: {
+            '$returnStation.name$': {
               [Op.iLike]: `%${req.query.search}%`,
             },
           },
-          {
-            stad: {
-              [Op.iLike]: `%${req.query.search}%`,
-            },
-          },
+          // {
+          //   '$departureStation.osoite$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$returnStation.osoite$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$departureStation.adress$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$returnStation.adress$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$departureStation.kaupunki$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$returnStation.kaupunki$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$departureStation.stad$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
+          // {
+          //   '$returnStation.stad$': {
+          //     [Op.iLike]: `%${req.query.search}%`,
+          //   },
+          // },
         ],
+      }
+    }
+
+    if (req.query.duration) {
+      const duration = req.query.duration
+      if (duration === 'short') {
+        where = {
+          ...where,
+          duration: {
+            [Op.lte]: 600,
+          },
+        }
+      }
+      if (duration === 'long') {
+        where = {
+          ...where,
+          duration: {
+            [Op.gt]: 600,
+          },
+        }
+      }
+    }
+
+    if (req.query.distance) {
+      const distance = req.query.distance
+      if (distance === 'short') {
+        where = {
+          ...where,
+          distance: {
+            [Op.lte]: 5000,
+          },
+        }
+      }
+      if (distance === 'long') {
+        where = {
+          ...where,
+          distance: {
+            [Op.gt]: 5000,
+          },
+        }
+      }
+    }
+
+    if (req.query.returnCity) {
+      where = {
+        ...where,
+        '$returnStation.kaupunki$': {
+          [Op.iLike]: `%${req.query.returnCity}%`,
+        },
+      }
+    }
+
+    if (req.query.departureCity) {
+      where = {
+        ...where,
+        '$departureStation.kaupunki$': {
+          [Op.iLike]: `%${req.query.departureCity}%`,
+        },
       }
     }
 
@@ -123,20 +183,15 @@ router.get('/', async (req, res) => {
         {
           model: Station,
           as: 'departureStation',
-          where: { ...whereDeparture, ...where },
         },
         {
           model: Station,
           as: 'returnStation',
-          where: { ...whereReturn, ...where },
         },
       ],
       limit,
       offset,
-      where: {
-        ...whereDistance,
-        ...whereDuration,
-      },
+      where,
 
       order: [order],
     })

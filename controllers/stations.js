@@ -8,7 +8,6 @@ router.get('/:id', async (req, res) => {
   try {
     let where = {}
     if (req.query.month) {
-      console.log('----------   -----------')
       const month = req.query.month
       const startDate = new Date(2021, Number(month - 1), 1) // May is 4th month (0-indexed)
       const endDate = new Date(2021, Number(month), 1) // June is 5th month (0-indexed)
@@ -151,7 +150,6 @@ router.get('/', async (req, res) => {
     }
     const page = req.query.page ? req.query.page : 0
     const rows = req.query.rows ? req.query.rows : 5
-    console.log(req.query.page)
     const { limit, offset } = getPagination(page, rows)
     const data = await Station.findAndCountAll({
       limit,
@@ -161,6 +159,16 @@ router.get('/', async (req, res) => {
     const stations = getPagingData(data, page, limit)
 
     res.send(stations)
+  } catch (e) {
+    console.log(e)
+    res.status(400).end()
+  }
+})
+
+router.post('/', async (req, res) => {
+  try {
+    const station = await Station.create(req.body)
+    res.send(station)
   } catch (e) {
     console.log(e)
     res.status(400).end()
