@@ -1,7 +1,7 @@
 import React from 'react'
-import StationList from './Stations'
-import TripList from './Trips'
-import SingleStation from './SingleStation'
+import StationList from './components/Stations'
+import TripList from './components/Trips'
+import SingleStation from './components/SingleStation'
 import { Routes, Route } from 'react-router-dom'
 
 const App = () => {

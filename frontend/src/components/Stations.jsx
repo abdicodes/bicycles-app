@@ -1,38 +1,26 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
-import { SearchBarMomoized } from './SearchBar'
-import TripsContainer from './TripsContainer'
 import { useDebouncedCallback } from 'use-debounce'
-import { CircularProgress, Box, Typography } from '@mui/material/'
-import Filters from './Filters'
-const TripList = () => {
-  const [trips, setTrips] = useState([])
+import { CircularProgress, Box } from '@mui/material/'
+import { SearchBarMomoized } from '../SearchBar'
+import StationsContainer from './StationsContainer'
+// import SearchBar from './SearchBar'
+
+const StationList = () => {
+  const [stations, setStations] = useState([])
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState()
   const [search, setSearch] = useState('')
-  const [sort, setSort] = useState('departure DESC')
   const [rows, setRows] = useState(5)
   const [loading, setLoading] = useState(true)
   const [totalItems, setTotalItems] = useState(null)
-  const [filters, setFilters] = useState({})
 
   const handlePage = (page) => {
     setPage(page)
     setLoading(true)
   }
 
-  const handleFilter = (value) => {
-    setFilters(value)
-    setPage(0)
-    setLoading(true)
-  }
-
-  const sortDispatcher = (value) => {
-    setSort(value)
-  }
   const handleRows = (e) => {
-    console.log('rows:')
-    console.log(e.target.value)
     setRows(e.target.value)
     setPage(0)
     setLoading(true)
@@ -54,15 +42,13 @@ const TripList = () => {
   const memoizedOnChangeText = useMemo(() => debounced, [debounced])
 
   useEffect(() => {
-    console.log(page)
-    const fetchTrips = () => {
+    const fetchStations = () => {
       axios
-        .get(`http://localhost:5000/api/trips`, {
-          params: { page, search, sort, rows, ...filters },
+        .get(`http://localhost:5000/api/stations`, {
+          params: { page, search, rows },
         })
         .then(({ data }) => {
-          console.log(data)
-          setTrips(data.items)
+          setStations(data.items)
           setTotalPages(data.totalPages)
           setPage(data.currentPage)
           setLoading(false)
@@ -70,36 +56,33 @@ const TripList = () => {
         })
     }
 
-    fetchTrips()
-  }, [page, search, sort, rows, filters])
+    fetchStations()
+  }, [page, search, rows])
 
   return (
-    <Box>
+    <div>
       <SearchBarMomoized
         initialValue={search}
         onChangeText={memoizedOnChangeText}
         value={search}
       />
-      <Filters handleFilter={handleFilter} />
       {loading && (
         <Box sx={{ display: 'flex', justifyContent: 'center', m: 20 }}>
           <CircularProgress />
         </Box>
       )}
       {totalPages && !loading && totalItems > 0 && (
-        <TripsContainer
+        <StationsContainer
           page={page}
-          count={totalPages}
-          trips={trips}
+          count={totalItems}
+          stations={stations}
           handleChangePage={handlePage}
           handleChangeRow={handleRows}
           rows={rows}
-          sortDispatcher={sortDispatcher}
         />
       )}
-      {totalItems === 0 && <Typography> No records found!</Typography>}
-    </Box>
+    </div>
   )
 }
 
-export default TripList
+export default StationList

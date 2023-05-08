@@ -11,7 +11,7 @@ import {
   TablePagination,
   TableSortLabel,
 } from '@mui/material'
-import { toKm, toMinutes } from './utils/conversions'
+import { toKm, toMinutes } from '../utils/conversions'
 
 const TripsContainer = ({
   trips,

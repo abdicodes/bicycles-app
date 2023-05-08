@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Typography, ListItem, ListItemText, List } from '@mui/material/'
 
-import Map from './Map'
+import Map from '../Map'
 
 const InfoCard = ({
   name,
