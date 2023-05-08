@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Typography,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-  List,
-  ListHeader,
-} from '@mui/material/'
+import { Box, Typography, ListItem, ListItemText, List } from '@mui/material/'
 
 import Map from './Map'
 
@@ -35,10 +27,10 @@ const InfoCard = ({
         <br />
         Total number of journeys ending at the station: {totalReturn} <br />
         Average distance of a journey starting from the station:{' '}
-        {avgDeparture.toFixed(2)} meters
+        {avgDeparture ? avgDeparture.toFixed(2) : 0} meters
         <br />
         Average distance of a journey ending at the station:{' '}
-        {avgReturn.toFixed(2)} meters
+        {avgReturn ? avgReturn.toFixed(2) : 0} meters
         <br />
       </Typography>
 
