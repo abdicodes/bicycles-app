@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
-import { Box, OutlinedInput, Button, Alert } from '@mui/material'
+import { Box, OutlinedInput, Button, Alert, Typography } from '@mui/material'
 
 const NewTrip = () => {
   const [errorMessage, setErrorMessage] = useState(false)
@@ -36,6 +36,9 @@ const NewTrip = () => {
   return (
     <div>
       <Box sx={{ display: 'grid', justifyContent: ' center' }}>
+        <Box sx={{ m: 5 }}>
+          <Typography> Add a new trip by filling this form</Typography>
+        </Box>
         <form onSubmit={formik.handleSubmit}>
           <Box>
             <OutlinedInput
