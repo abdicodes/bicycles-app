@@ -205,4 +205,21 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.delete('/', async (req, res) => {
+  try {
+    const trip = await Trip.destroy({
+      where: {
+        departureId: 2000,
+        returnId: 2000,
+        duration: 9,
+        distance: 9,
+      },
+    })
+    res.status(204).end()
+  } catch (e) {
+    console.log(e)
+    res.status(400).end()
+  }
+})
+
 module.exports = router

@@ -88,15 +88,17 @@ router.get('/:id', async (req, res) => {
       order: [['totalDepartures', 'DESC']],
     })
 
-    res.send({
-      station,
-      totalDeparture,
-      totalReturn,
-      avgDeparture,
-      avgReturn,
-      topReturn,
-      topDeparture,
-    })
+    res
+      .send({
+        station,
+        totalDeparture,
+        totalReturn,
+        avgDeparture,
+        avgReturn,
+        topReturn,
+        topDeparture,
+      })
+      .end()
   } catch (e) {
     console.log(e)
     res.status(400).end()
@@ -158,7 +160,7 @@ router.get('/', async (req, res) => {
     })
     const stations = getPagingData(data, page, limit)
 
-    res.send(stations)
+    res.send(stations).end()
   } catch (e) {
     console.log(e)
     res.status(400).end()
@@ -168,7 +170,21 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const station = await Station.create(req.body)
-    res.send(station)
+    res.send(station).end()
+  } catch (e) {
+    console.log(e)
+    res.status(400).end()
+  }
+})
+
+router.delete('/', async (req, res) => {
+  try {
+    const station = await Station.destroy({
+      where: {
+        id: 2000,
+      },
+    })
+    res.status(204).end()
   } catch (e) {
     console.log(e)
     res.status(400).end()

@@ -8,7 +8,9 @@
     "dev": "nodemon app.js",
     "test": "jest",
     "eslint": "eslint './**/*.{js,jsx}'",
-    "migration:down": "node utils/rollback.js"
+    "migration:down": "node utils/rollback.js",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "license": "ISC",
   "devDependencies": {
