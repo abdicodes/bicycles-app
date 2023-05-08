@@ -80,12 +80,12 @@ const TripList = () => {
         onChangeText={memoizedOnChangeText}
         value={search}
       />
+      <Filters handleFilter={handleFilter} />
       {loading && (
         <Box sx={{ display: 'flex', justifyContent: 'center', m: 20 }}>
           <CircularProgress />
         </Box>
       )}
-      <Filters handleFilter={handleFilter} />
       {totalPages && !loading && totalItems > 0 && (
         <TripsContainer
           page={page}

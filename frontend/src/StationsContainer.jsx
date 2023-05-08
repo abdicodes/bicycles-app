@@ -11,6 +11,7 @@ import {
   TablePagination,
 } from '@mui/material'
 
+import { useNavigate } from 'react-router-dom'
 const StationsContainer = ({
   stations,
   count,
@@ -19,6 +20,11 @@ const StationsContainer = ({
   handleChangePage,
   handleChangeRow,
 }) => {
+  const navigate = useNavigate()
+  const navigationHandler = (e) => {
+    const id = e.target.id
+    navigate(`/stations/${id}`)
+  }
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -34,13 +40,22 @@ const StationsContainer = ({
           <TableBody>
             {stations.map((row) => (
               <TableRow
+                hover
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.osoite}</TableCell>
-                <TableCell>{row.kaupunki}</TableCell>
-                <TableCell>{row.capacity}</TableCell>
+                <TableCell onClick={navigationHandler} id={row.id}>
+                  {row.name}
+                </TableCell>
+                <TableCell onClick={navigationHandler} id={row.id}>
+                  {row.osoite}
+                </TableCell>
+                <TableCell onClick={navigationHandler} id={row.id}>
+                  {row.kaupunki}
+                </TableCell>
+                <TableCell onClick={navigationHandler} id={row.id}>
+                  {row.capacity}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
