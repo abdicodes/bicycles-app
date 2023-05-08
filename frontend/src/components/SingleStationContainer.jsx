@@ -87,7 +87,6 @@ const InfoCard = ({
 }
 
 const SingleStationContainer = ({ stationData }) => {
-  console.log(stationData)
   return (
     <Box>
       <Box sx={{ minWidth: 275 }}>

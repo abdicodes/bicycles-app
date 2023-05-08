@@ -54,7 +54,7 @@ const SingleStation = ({ ...pros }) => {
         city: data.station.kaupunki,
       }
     : null
-  console.log(data)
+
   return (
     <Box
       sx={{

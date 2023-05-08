@@ -31,8 +31,6 @@ const TripList = () => {
     setSort(value)
   }
   const handleRows = (e) => {
-    console.log('rows:')
-    console.log(e.target.value)
     setRows(e.target.value)
     setPage(0)
     setLoading(true)
@@ -54,14 +52,12 @@ const TripList = () => {
   const memoizedOnChangeText = useMemo(() => debounced, [debounced])
 
   useEffect(() => {
-    console.log(page)
     const fetchTrips = () => {
       axios
         .get(`http://localhost:5000/api/trips`, {
           params: { page, search, sort, rows, ...filters },
         })
         .then(({ data }) => {
-          console.log(data)
           setTrips(data.items)
           setTotalPages(data.totalPages)
           setPage(data.currentPage)
