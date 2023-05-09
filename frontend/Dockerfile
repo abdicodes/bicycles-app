@@ -10,6 +10,7 @@ ENV CI=true
 
 FROM build-stage as production-stage
 
+ENV  REACT_APP_BACKEND_URL=http://localhost:8080/api
 
 RUN npm run build
 
