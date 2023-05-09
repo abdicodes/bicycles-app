@@ -13,11 +13,11 @@ services:
     build:
       context: ./ # The context will pick this directory as the "build context"
       dockerfile: Dockerfile # This will simply tell which dockerfile to read
-    ports:
-      - 5000:5000
+    # ports:
+    #   - 5000:5000
     volumes:
       - ./:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
-    container_name: backend # This will name the container hello-front-dev
+    container_name: backend # This will name the container backend
     environment:
       - PORT=5000
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
@@ -28,11 +28,12 @@ services:
       dockerfile: Dockerfile # This will simply tell which dockerfile to read
     ports:
       - 3000:80
-    # environment:
-    # - REACT_APP_BACKEND_URL=http://localhost:8080/api
+      # environment:
+      # - REACT_APP_BACKEND_URL=http://localhost:8080/api
+      - REACT_APP_BACKEND_URL=http://localhost:80/api
     volumes:
       - ./frontend:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
-    container_name: frontend # This will name the container hello-front-dev
+    container_name: frontend # This will name the container frontend
   nginx:
     image: nginx:1.20.1
     volumes:
@@ -40,6 +41,6 @@ services:
     ports:
       - 8080:80
     container_name: reverse-proxy
-    depends_on:
+    depends_on: # wait for the frontend & backend containers to be started
       - backend
-      - frontend # wait for the frontend container to be started
+      - frontend
