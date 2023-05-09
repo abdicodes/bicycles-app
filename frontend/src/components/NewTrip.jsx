@@ -3,6 +3,8 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import { Box, OutlinedInput, Button, Alert, Typography } from '@mui/material'
 
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL
+
 const NewTrip = () => {
   const [errorMessage, setErrorMessage] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
@@ -18,7 +20,7 @@ const NewTrip = () => {
     },
     onSubmit: (values) => {
       axios
-        .post(`http://localhost:5000/api/trips/`, values)
+        .post(`${REACT_APP_BACKEND_URL}/trips`, values)
         .then(() => {
           setSuccessMessage(true)
           setTimeout(() => {

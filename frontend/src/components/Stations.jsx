@@ -4,7 +4,8 @@ import { useDebouncedCallback } from 'use-debounce'
 import { CircularProgress, Box } from '@mui/material/'
 import { SearchBarMomoized } from '../SearchBar'
 import StationsContainer from './StationsContainer'
-// import SearchBar from './SearchBar'
+
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL
 
 const StationList = () => {
   const [stations, setStations] = useState([])
@@ -44,7 +45,7 @@ const StationList = () => {
   useEffect(() => {
     const fetchStations = () => {
       axios
-        .get(`http://localhost:5000/api/stations`, {
+        .get(`${REACT_APP_BACKEND_URL}/stations`, {
           params: { page, search, rows },
         })
         .then(({ data }) => {

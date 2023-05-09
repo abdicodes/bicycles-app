@@ -5,6 +5,9 @@ import TripsContainer from './TripsContainer'
 import { useDebouncedCallback } from 'use-debounce'
 import { CircularProgress, Box, Typography } from '@mui/material/'
 import Filters from '../Filters'
+
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL
+
 const TripList = () => {
   const [trips, setTrips] = useState([])
   const [page, setPage] = useState(0)
@@ -54,7 +57,7 @@ const TripList = () => {
   useEffect(() => {
     const fetchTrips = () => {
       axios
-        .get(`http://localhost:5000/api/trips`, {
+        .get(`${REACT_APP_BACKEND_URL}/trips`, {
           params: { page, search, sort, rows, ...filters },
         })
         .then(({ data }) => {

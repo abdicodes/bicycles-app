@@ -9,7 +9,7 @@ export default function Appbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Button onClick={() => navigate('/station')} color="inherit">
+          <Button onClick={() => navigate('/stations')} color="inherit">
             Stations
           </Button>
           <Button onClick={() => navigate('/trips')} color="inherit">

@@ -10,6 +10,8 @@ import {
   CircularProgress,
 } from '@mui/material/'
 
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL
+
 const SingleStation = ({ ...pros }) => {
   const { id } = useMatch('/stations/:id').params
   const [data, setData] = useState()
@@ -19,7 +21,7 @@ const SingleStation = ({ ...pros }) => {
   useEffect(() => {
     const fetchStation = () => {
       axios
-        .get(`http://localhost:5000/api/stations/${id}`, {
+        .get(`${REACT_APP_BACKEND_URL}/stations/${id}`, {
           params: { month: month },
         })
         .then(({ data }) => {
