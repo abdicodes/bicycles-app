@@ -8,7 +8,7 @@ const tripsRouter = require('./controllers/trips')
 const cors = require('cors')
 
 app.use(cors())
-// app.use(express.static('dist'))
+app.use(express.static('build'))
 
 app.use(express.json())
 
