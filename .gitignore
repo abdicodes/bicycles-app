@@ -4,3 +4,4 @@ secrets/
 .env
 .DS_Store
 requests/
+data
