@@ -2,4 +2,8 @@
 .gitignore
 node_modules
 Dockerfile
-dev.Dockerfile
+frontend
+requests
+secrets
+.env
+.vscode
