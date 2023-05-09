@@ -3,5 +3,6 @@ node_modules/
 secrets/
 .env
 .DS_Store
-data/*.csv
 requests/
+data/asemat.csv
+data/2021*.csv
