@@ -1,27 +1,15 @@
-# Full Stack Bicycle stations/trips app
+# Full Stack open CI/CD
 
-This repository is used as part of Solita's pre-assignment for dev Academy position
+This repository is used for the CI/CD module of the Full stack open course
 
-You can run this project via docker-compose
+Fork the repository to complete course exercises
 
-you will need to have docker and docker compose installed in your machine.
+## Commands
 
-To run this app first clone this repo to your local machine
+Start by running `npm install` inside the project folder
 
-`git clone https://github.com/abdicodes/bicycles-app.git`
-
-Then navigate to the folder bicycles-app
-`cd bicycles-app`
-
-then run command
-`docker-compose up`
-
-all the 3 docker images should run; backend, frontend and postgres
-
-Alternatively you can run the app by using Node, however you will need to setup a postgres database either on your machine or on the web
-once you have configured a postgres database and have the link in form
-postgres://userpassword@link:port/postgres
-
-Do the following :
-
--Run the backend
+`npm start` to run the webpack dev server
+`npm test` to run tests
+`npm run eslint` to run eslint
+`npm run build` to make a production build
+`npm run start-prod` to run your production build

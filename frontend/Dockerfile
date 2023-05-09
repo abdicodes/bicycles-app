@@ -10,7 +10,7 @@ ENV CI=true
 
 FROM build-stage as production-stage
 
-ENV REACT_APP_BACKEND_URL=/api
+
 RUN npm run build
 
 FROM nginx:1.20-alpine
