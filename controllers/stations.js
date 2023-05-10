@@ -17,7 +17,9 @@ router.get('/:id', async (req, res) => {
       },
     }
   }
-  const station = await Station.findByPk(req.params.id, {})
+  const station = await Station.findByPk(req.params.id, {
+    attributes: { exclude: ['nimi', 'namn', 'adress', 'stad'] },
+  })
 
   if (!station) {
     return res.status(404).json({ error: 'Station is not found' })
@@ -151,6 +153,7 @@ router.get('/', async (req, res) => {
   const rows = req.query.rows ? req.query.rows : 5
   const { limit, offset } = getPagination(page, rows)
   const data = await Station.findAndCountAll({
+    attributes: { exclude: ['nimi', 'namn', 'adress', 'stad', 'x', 'y'] },
     limit,
     offset,
     where,

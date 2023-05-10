@@ -16,6 +16,9 @@ router.get('/:id', async (req, res) => {
       { model: Station, as: 'returnStation' },
     ],
   })
+  if (!trip) {
+    return res.status(404).json({ error: 'Trip is not found!' }).end()
+  }
 
   res.send(trip).end()
 })
@@ -128,14 +131,17 @@ router.get('/', async (req, res) => {
   const { limit, offset } = getPagination(page, rows)
 
   const data = await Trip.findAndCountAll({
+    attributes: { exclude: ['departure', 'return'] },
     include: [
       {
         model: Station,
         as: 'departureStation',
+        attributes: ['name'],
       },
       {
         model: Station,
         as: 'returnStation',
+        attributes: ['name'],
       },
     ],
     limit,
@@ -153,10 +159,10 @@ router.get('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   const trip = await Trip.destroy({
     where: {
-      departureId: 2000,
-      returnId: 2000,
-      duration: 9,
-      distance: 9,
+      [Op.or]: {
+        departureId: 2000,
+        returnId: 2000,
+      },
     },
   })
   res.status(204).end()
