@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "jest",
+    "test": "NODE_ENV=test jest --verbose --runInBand --forceExit",
     "eslint": "eslint './**/*.{js,jsx}'",
     "migration:down": "node utils/rollback.js",
     "cypress:open": "cypress open",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.11.0",
-    "jest": "^25.5.4",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.22"
   },
   "dependencies": {
