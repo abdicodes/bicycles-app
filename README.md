@@ -104,10 +104,15 @@ I have ran into some problems with this app mainly related to node framework. I 
 
 I was not able to ship this project to AWS ECS for some technical reasons but luckily I was able to upload it on fly.io manually for demonestration purposes.
 
-## How could I have improved and optimised this application
+## How can I have improve or optimise this application
 
-In this application I challenged myself to use new database Postgres and to implement a an app that runs all the logic in the server side. the cost of this is that I did not analyse the datastructure, time, space complexity and thus we can see that some queries are taking reasonable time which is not acceptable and this is something I would have improved.
+In this application I challenged myself to use new database type to me which is Postgres. I have used mySQL and MongoDB in the past but I have decided to use this project to learn about Postgres and to implement a an app that runs all the logic in the server side.
+
+The downsize of this is that I did not analyse the data structure and the impact of it on time and space complexity
+specially when I was designing the queries. so I could really work more on simplifiying the queries, making multiple queries
+and filtering queries in the backend rather than in database level.
 
 I would have written this application in TypeScript for added validation for a secure code.
 
 I could have improved the UI styling, perhaps used Figma for prototyping and designing components.
+and be more consistent with styling. I wanted to use styled components but I lacked time to learn about a new way to do styling.

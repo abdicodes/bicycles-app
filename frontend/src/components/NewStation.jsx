@@ -44,7 +44,7 @@ const NewStation = () => {
         })
     },
   })
-  console.log(formik)
+
   return (
     <div>
       <Box sx={{ display: 'grid', justifyContent: ' center' }}>
@@ -101,7 +101,7 @@ const NewStation = () => {
           <Box>
             <OutlinedInput
               id="id"
-              sx={{ m: 5, marginX: 5, width: '50vh' }}
+              sx={{ m: 1, marginX: 5, width: '50vh' }}
               placeholder="Enter Station ID no."
               onChange={formik.handleChange}
               value={formik.values.id}
