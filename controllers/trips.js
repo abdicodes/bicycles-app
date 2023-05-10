@@ -6,7 +6,7 @@ const { getPagination, getPagingData } = require('../utils/paging')
 
 router.post('/', async (req, res) => {
   const trip = await Trip.create(req.body)
-  res.send(trip)
+  res.status(201).json(trip).end()
 })
 
 router.get('/:id', async (req, res) => {
@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
     ],
   })
 
-  res.send(trip)
+  res.send(trip).end()
 })
 
 router.get('/', async (req, res) => {
@@ -147,7 +147,7 @@ router.get('/', async (req, res) => {
 
   const trip = getPagingData(data, page, limit)
 
-  res.send(trip)
+  res.send(trip).end()
 })
 
 router.delete('/', async (req, res) => {

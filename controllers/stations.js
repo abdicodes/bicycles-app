@@ -164,10 +164,10 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const isStation = await Station.findByPk(req.body.id)
   if (isStation) {
-    return res.status(400).json({ error: 'The station already exists!' })
+    return res.status(400).json({ error: 'The station already exists!' }).end()
   }
   const station = await Station.create(req.body)
-  res.send(station).end()
+  res.status(201).json(station).end()
 })
 
 // delete entry initiated during test
