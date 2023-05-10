@@ -1,0 +1,20 @@
+name: Periodic Checks
+
+on:
+  schedule:
+    # Runs at 18:15 UTC every day
+    - cron: '45 16 * * *'
+jobs:
+  a_test_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v3
+        with:
+          # Check the following URLs one by one sequentially
+          url: https://solita-flying-bikes.fly.dev/trips
+          # Fail this action after this many failed attempts
+          max-attempts: 2 # Optional, defaults to 1
+          # Delay between retries
+          retry-delay: 5s # Optional, only applicable to max-attempts > 1
+

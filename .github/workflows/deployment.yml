@@ -1,0 +1,32 @@
+name: Main repo commit pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install dependencies backend
+        run: npm install
+      - name: Install dependencies frontend
+        run: cd frontend && npm install
+      - run: cd frontend && npm start
+      - name: Linting
+        run: npm run eslint
+      - run: cd frontend && npm test
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run start
+          wait-on: http://localhost:5000
