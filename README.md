@@ -2,8 +2,6 @@
 
 ### [Click here for live preview](https://solita-flying-bikes.fly.dev/)
 
-**note that due to hosting DB separately in different server you may experience slowness in running queries**
-
 ** This repository is used as part of Solita's pre-assignment for dev Academy position **
 
 # Prerequisites
@@ -149,7 +147,7 @@ I have used Cypress for E2E testing rather than selenium to be consistent in the
 
 I have ran into some problems with this app mainly related to node framework. I intially used a boilerplate that combines both React and express in one package.json which I thought is easier to ship on the cloud however that backfired and at some point I had to install a spearate React server and overhaul the app.
 
-I was not able to ship this project to AWS ECS for some technical reasons but luckily I was able to upload it on fly.io manually for demonestration purposes however the performance is not ideal as the database is run on a different server and queries are somehow slow.
+I was not able to ship this project to AWS ECS for some technical reasons but luckily I was able to upload it on fly.io manually for demonestration purposes. Nevertheless the application works smoothly in local docker-compose cluster.
 
 In the future I would configure the cloud an early stage of the project and setup a CI/CD pipeline to automate the process of shipping.
 
