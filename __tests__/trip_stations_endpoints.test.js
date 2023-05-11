@@ -53,13 +53,32 @@ describe('creating new trips or stations', () => {
       return: '2021-06-01 18:22',
       departureId: '2000',
       returnId: '2000',
-      distance: '9',
-      duration: '9',
+      distance: '100',
+      duration: '100',
     }
 
     const myReq = await api.post(`/api/trips`).send(newTrip)
     expect(myReq.status).toEqual(201)
-    expect(myReq.body.distance).toEqual(9)
+    expect(myReq.body.distance).toEqual(100)
+  })
+
+  test('new with malformed date is rejected', async () => {
+    const newTrip = {
+      departure: 'foo',
+      return: '2021-06-01 18:22',
+      departureId: '2000',
+      returnId: '2000',
+      distance: '100',
+      duration: '100',
+    }
+
+    const myReq = await api.post(`/api/trips`).send(newTrip)
+    expect(400)
+  })
+
+  test('unknown routes are handled', async () => {
+    await api.get(`/api/unknown`)
+    expect(404)
   })
 
   test('test trip can be delete ', async () => {
