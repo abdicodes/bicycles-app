@@ -38,123 +38,139 @@ const NewTrip = () => {
     },
   })
   return (
-    <div>
-      <Box sx={{ display: 'grid', justifyContent: ' center' }}>
-        <Box sx={{ m: 5 }}>
-          <Typography> Add a new trip by filling this form</Typography>
-        </Box>
-        <Box>
-          {formik.touched.departure && formik.errors.departure && (
-            <Alert severity="error">{formik.errors.departure}</Alert>
-          )}
-          {formik.touched.return && formik.errors.return && (
-            <Alert severity="error">{formik.errors.return}</Alert>
-          )}
-          {formik.touched.departureId && formik.errors.departureId && (
-            <Alert severity="error">{formik.errors.departureId}</Alert>
-          )}
-          {formik.touched.returnId && formik.errors.returnId && (
-            <Alert severity="error">{formik.errors.returnId}</Alert>
-          )}
-          {formik.touched.duration && formik.errors.duration && (
-            <Alert severity="error">{formik.errors.duration}</Alert>
-          )}
-          {formik.touched.distance && formik.errors.distance && (
-            <Alert severity="error">{formik.errors.distance}</Alert>
-          )}
-          {errorMessage && (
-            <Alert severity="error">
-              Something went wrong make sure you filled all fields correctly!
-            </Alert>
-          )}
-
-          {successMessage && (
-            <Alert severity="success">
-              New Trip has been added successfully
-            </Alert>
-          )}
-        </Box>
-        <form onSubmit={formik.handleSubmit}>
-          <Box>
-            <OutlinedInput
-              id="departure"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Departure DD-MM-YYYY hh:mm"
-              onChange={formik.handleChange}
-              value={formik.values.departure}
-              error={formik.touched.departure && formik.errors.departure}
-              onBlur={formik.handleBlur}
-            />
-            <OutlinedInput
-              id="return"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Return DD-MM-YYYY hh:mm"
-              onChange={formik.handleChange}
-              value={formik.values.return}
-              error={formik.touched.return && formik.errors.return}
-              onBlur={formik.handleBlur}
-            />
-            <OutlinedInput
-              id="departureId"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Departure Station ID"
-              onChange={formik.handleChange}
-              value={formik.values.departureId}
-              error={formik.touched.departureId && formik.errors.departureId}
-              onBlur={formik.handleBlur}
-            />
-            <OutlinedInput
-              id="returnId"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Return Station ID"
-              onChange={formik.handleChange}
-              value={formik.values.returnId}
-              error={formik.touched.returnId && formik.errors.returnId}
-              onBlur={formik.handleBlur}
-            />
-            <OutlinedInput
-              id="distance"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Distance (in meters)"
-              onChange={formik.handleChange}
-              value={formik.values.distance}
-              error={formik.touched.distance && formik.errors.distance}
-              onBlur={formik.handleBlur}
-            />
-            <OutlinedInput
-              id="duration"
-              sx={{ m: 1, marginX: 5, width: '50vh' }}
-              placeholder="Duration (in seconds"
-              onChange={formik.handleChange}
-              value={formik.values.duration}
-              error={formik.touched.duration && formik.errors.duration}
-              onBlur={formik.handleBlur}
-            />
-          </Box>
-          <Box sx={{ display: 'flex', justifyContent: ' center' }}>
-            <Button
-              type="submit"
-              size="large"
-              variant="contained"
-              sx={{ m: 1, marginX: 1, width: '25vh' }}
-              disabled={!formik.isValid || !formik.dirty}
-            >
-              Submit
-            </Button>
-            <Button
-              type="reset"
-              size="large"
-              variant="outlined"
-              sx={{ m: 1, marginX: 1, width: '25vh' }}
-              onClick={formik.handleReset}
-              disabled={!formik.dirty}
-            >
-              Reset form
-            </Button>
-          </Box>
-        </form>
+    <Box>
+      <Box sx={{ ml: 5, mt: 2, mb: 2 }}>
+        <Typography> Add a new trip by filling this form</Typography>
       </Box>
-    </div>
+      <Box sx={{ width: '80vh', ml: 2 }}>
+        {formik.touched.departure && formik.errors.departure && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.departure}
+          </Alert>
+        )}
+        {formik.touched.return && formik.errors.return && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.return}
+          </Alert>
+        )}
+        {formik.touched.departureId && formik.errors.departureId && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.departureId}
+          </Alert>
+        )}
+        {formik.touched.returnId && formik.errors.returnId && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.returnId}
+          </Alert>
+        )}
+        {formik.touched.duration && formik.errors.duration && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.duration}
+          </Alert>
+        )}
+        {formik.touched.distance && formik.errors.distance && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            {formik.errors.distance}
+          </Alert>
+        )}
+        {errorMessage && (
+          <Alert severity="error" sx={{ m: 1 }}>
+            Something went wrong make sure you filled all fields correctly!
+          </Alert>
+        )}
+
+        {successMessage && (
+          <Alert severity="success" sx={{ m: 1 }}>
+            New Trip has been added successfully
+          </Alert>
+        )}
+      </Box>
+      <form onSubmit={formik.handleSubmit}>
+        <Box>
+          <OutlinedInput
+            id="departure"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Departure DD-MM-YYYY hh:mm"
+            onChange={formik.handleChange}
+            value={formik.values.departure}
+            error={formik.touched.departure && formik.errors.departure}
+            onBlur={formik.handleBlur}
+          />
+          <OutlinedInput
+            id="return"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Return DD-MM-YYYY hh:mm"
+            onChange={formik.handleChange}
+            value={formik.values.return}
+            error={formik.touched.return && formik.errors.return}
+            onBlur={formik.handleBlur}
+          />
+          <OutlinedInput
+            id="departureId"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Departure Station ID"
+            onChange={formik.handleChange}
+            value={formik.values.departureId}
+            error={formik.touched.departureId && formik.errors.departureId}
+            onBlur={formik.handleBlur}
+          />
+          <OutlinedInput
+            id="returnId"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Return Station ID"
+            onChange={formik.handleChange}
+            value={formik.values.returnId}
+            error={formik.touched.returnId && formik.errors.returnId}
+            onBlur={formik.handleBlur}
+          />
+          <OutlinedInput
+            id="distance"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Distance (in meters)"
+            onChange={formik.handleChange}
+            value={formik.values.distance}
+            error={formik.touched.distance && formik.errors.distance}
+            onBlur={formik.handleBlur}
+          />
+          <OutlinedInput
+            id="duration"
+            sx={{ m: 1, marginX: 2, width: '40vh' }}
+            placeholder="Duration (in seconds"
+            onChange={formik.handleChange}
+            value={formik.values.duration}
+            error={formik.touched.duration && formik.errors.duration}
+            onBlur={formik.handleBlur}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: ' center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Button
+            type="submit"
+            size="large"
+            variant="contained"
+            sx={{ m: 1, marginX: 1, width: '25vh' }}
+            disabled={!formik.isValid || !formik.dirty}
+          >
+            Submit
+          </Button>
+          <Button
+            type="reset"
+            size="large"
+            variant="outlined"
+            sx={{ m: 1, marginX: 1, width: '25vh' }}
+            onClick={formik.handleReset}
+            disabled={!formik.dirty}
+          >
+            Reset form
+          </Button>
+        </Box>
+      </form>
+    </Box>
   )
 }
 

@@ -16,8 +16,15 @@ const Filters = ({ handleFilter }) => {
   }, [filter])
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
-      <FormControl sx={{ pr: 5 }}>
+    <Box
+      sx={{
+        display: 'flex, ',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        p: 2,
+      }}
+    >
+      <FormControl>
         <FormLabel id="departure-city">Departure city</FormLabel>
         <RadioGroup
           defaultValue=""
@@ -36,7 +43,7 @@ const Filters = ({ handleFilter }) => {
         </RadioGroup>
       </FormControl>
 
-      <FormControl sx={{ pr: 5 }}>
+      <FormControl>
         <FormLabel id="return-station">Return Station</FormLabel>
         <RadioGroup
           defaultValue=""
@@ -53,7 +60,7 @@ const Filters = ({ handleFilter }) => {
         </RadioGroup>
       </FormControl>
 
-      <FormControl sx={{ pr: 5 }}>
+      <FormControl>
         <FormLabel id="duration">Duration</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
@@ -75,7 +82,7 @@ const Filters = ({ handleFilter }) => {
         </RadioGroup>
       </FormControl>
 
-      <FormControl sx={{ pr: 5 }}>
+      <FormControl>
         <FormLabel id="distance">Distance</FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

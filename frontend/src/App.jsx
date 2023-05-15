@@ -9,19 +9,17 @@ import NewTrip from './components/NewTrip'
 
 const App = () => {
   return (
-    <div>
-      <>
-        <Appbar />
-        <Routes>
-          <Route path="/satations" element={<StationList />} />
-          <Route path="/trips" element={<TripList />} />
-          <Route path="/stations/:id" element={<SingleStation />} />
-          <Route path="/add-station" element={<NewStation />} />
-          <Route path="/add-trip" element={<NewTrip />} />
-          <Route path="*" element={<StationList />} />
-        </Routes>
-      </>
-    </div>
+    <>
+      <Appbar />
+      <Routes>
+        <Route path="/satations" element={<StationList />} />
+        <Route path="/trips" element={<TripList />} />
+        <Route path="/stations/:id" element={<SingleStation />} />
+        <Route path="/add-station" element={<NewStation />} />
+        <Route path="/add-trip" element={<NewTrip />} />
+        <Route path="*" element={<StationList />} />
+      </Routes>
+    </>
   )
 }
 
