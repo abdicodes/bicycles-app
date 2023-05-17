@@ -24,7 +24,7 @@ const dataImporter = (path) => {
         }
       })
       .on('end', () => {
-        console.log(`Total ${data.length} trips have been imported`)
+        console.log(`total ${data.length} trips has been imported`)
         resolve(data)
       })
       .on('error', (err) => {
@@ -49,6 +49,7 @@ module.exports = {
         type: DataTypes.DATE,
         allowNull: false,
       },
+
       departure_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -69,15 +70,14 @@ module.exports = {
       },
     })
 
-    const files = ['./data/df1.csv', './data/df2.csv', './data/df3.csv']
-    const allData = []
+    const data1 = await dataImporter('./data/df1.csv')
+    await queryInterface.bulkInsert('trips', data1)
 
-    for (const file of files) {
-      const data = await dataImporter(file)
-      allData.push(...data)
-    }
+    const data2 = await dataImporter('./data/df2.csv')
+    await queryInterface.bulkInsert('trips', data2)
 
-    await queryInterface.bulkCreate('trips', allData)
+    const data3 = await dataImporter('./data/df3.csv')
+    await queryInterface.bulkInsert('trips', data3)
   },
 
   down: async ({ context: queryInterface }) => {
