@@ -69,24 +69,15 @@ module.exports = {
       },
     })
 
-    const files = [
-      './data/df1-1.csv',
-      './data/df1-2.csv',
-      './data/df1-3.csv',
-      './data/df2-1.csv',
-      './data/df2-2.csv',
-      './data/df2-3.csv',
-      './data/df2-4.csv',
-      './data/df3-1.csv',
-      './data/df3-2.csv',
-      './data/df3-3.csv',
-      './data/df3-4.csv',
-    ]
+    const files = ['./data/df1.csv', './data/df2.csv', './data/df3.csv']
+    const allData = []
 
     for (const file of files) {
       const data = await dataImporter(file)
-      await queryInterface.bulkInsert('trips', data)
+      allData.push(...data)
     }
+
+    await queryInterface.bulkCreate('trips', allData)
   },
 
   down: async ({ context: queryInterface }) => {
