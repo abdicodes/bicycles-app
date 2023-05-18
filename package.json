@@ -32,7 +32,6 @@
     "pg": "^8.10.0",
     "sequelize": "^6.31.1",
     "supertest": "^6.3.3",
-    "tcp-port-used": "^1.0.2",
     "umzug": "^3.2.1"
   }
 }
