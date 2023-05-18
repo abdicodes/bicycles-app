@@ -78,6 +78,12 @@ module.exports = {
 
     const data3 = await dataImporter('./data/df3.csv')
     await queryInterface.bulkInsert('trips', data3)
+
+    const data4 = await dataImporter('./data/df4.csv')
+    await queryInterface.bulkInsert('trips', data4)
+
+    const data5 = await dataImporter('./data/df5.csv')
+    await queryInterface.bulkInsert('trips', data5)
   },
 
   down: async ({ context: queryInterface }) => {
