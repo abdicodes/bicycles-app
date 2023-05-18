@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile # This will simply tell which dockerfile to read
     container_name: frontend # This will name the container frontend
   nginx:
-    image: nginx:1.20.1
+    image: nginx:1.20-alpine
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
