@@ -8,7 +8,7 @@ const { connectToDatabase } = require('./utils/db')
 const stationsRouter = require('./controllers/stations')
 const tripsRouter = require('./controllers/trips')
 const cors = require('cors')
-const isPortReachable = require('is-port-reachable')
+const tcpPortUsed = require('tcp-port-used')
 
 app.use(cors())
 app.use(express.static('build'))
@@ -21,7 +21,7 @@ app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
 const start = async () => {
-  await isPortReachable(5432, { host: 'localhost' })
+  await tcpPortUsed.waitUntilUsed(5432, 500, 8000)
   await connectToDatabase()
   app.listen(PORT, () => {
     logger.info(`Server running on port ${PORT}`)
