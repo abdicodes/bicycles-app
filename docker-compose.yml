@@ -13,8 +13,6 @@ services:
     build:
       context: ./ # The context will pick this directory as the "build context"
       dockerfile: Dockerfile # This will simply tell which dockerfile to read
-    volumes:
-      - ./:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
     container_name: backend # This will name the container backend
     environment:
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
@@ -24,8 +22,6 @@ services:
     build:
       context: ./frontend # The context will pick this directory as the "build context"
       dockerfile: Dockerfile # This will simply tell which dockerfile to read
-    volumes:
-      - ./frontend:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
     container_name: frontend # This will name the container frontend
   nginx:
     image: nginx:1.20.1
