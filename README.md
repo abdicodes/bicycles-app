@@ -1,6 +1,10 @@
 # Full Stack Bicycle stations/trips app
 
-### [Click here for live preview](https://solita-flying-bikes.fly.dev/)
+### [Click here for live preview:lite-version](https://solita-flying-bikes.fly.dev/)
+
+### the fullstack application is also deployed on AWS with full scaled database
+
+### [http://ec2-13-48-136-33.eu-north-1.compute.amazonaws.com](http://ec2-13-48-136-33.eu-north-1.compute.amazonaws.com)
 
 ** This repository is used as part of Solita's pre-assignment for dev Academy position **
 
@@ -150,6 +154,9 @@ I have ran into some problems with this app mainly related to node framework. I 
 I was not able to ship this project to AWS ECS for some technical reasons but luckily I was able to upload it on fly.io manually for demonestration purposes. Nevertheless the application works smoothly in local docker-compose cluster.
 
 In the future I would configure the cloud an early stage of the project and setup a CI/CD pipeline to automate the process of shipping.
+
+Update: I was able to deploy the application on AWS EC2 in a docker-compose cluster connected to AWS RDS database
+link available above
 
 ## How can I improve or optimise this application
 
