@@ -42,6 +42,7 @@ if you face problems setting up the docker files you can setup the project in a 
 for this you will still need Docker installed on your machine and also Node
 
 - setup a Postgres database in a docker by running this command
+
   `docker run --name postgres -e POSTGRES_PASSWORD=postgres -d  -p 5432:5432 postgres`
 
 once the docker is setup and running Do the following :
@@ -52,7 +53,7 @@ once the docker is setup and running Do the following :
   `npm install` once it is done do the same for the frontend `cd frontend` then `npm install` or yarn instead of npm
 
 - run the backend with the following command
-  `DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres npm start`
+  `PORT=5000 DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres npm start`
 
 - move to frontend folder
   `cd frontned`
@@ -67,6 +68,8 @@ the home page will display stations list
 you can use the appbar tabs to navigate to different tabs
 
 such as trips or add trip or add station
+
+###
 
 # Description of the project
 
