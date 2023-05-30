@@ -125,6 +125,13 @@ only work when conditions are met. for Submit it will only work once the form is
 
 # Testing
 
+**_ Before running tests you will need to to install node modules in your machine _**
+you can achinve this by running root dir in your shell and run the command `npm install`
+
+then also install React node modules by going to dir "frontend" and running the same command
+
+`cd frontend` then `npm install`
+
 UI unit testing are performed testing the Trips and Stations container components.
 the test folder located in frontend folder under name `__test__`
 
